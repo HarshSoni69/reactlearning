@@ -4,7 +4,7 @@
   "description": "hello ",
   "scripts": {
     "start": "parcel ./source/index.html",
-    "build": "parcel build index.html",
+    "build": "parcel build ./source/index.html ",
     "test": "jest"
   },
   "author": "harsh",
