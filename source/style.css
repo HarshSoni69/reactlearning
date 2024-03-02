@@ -1,0 +1,99 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid black;
+    background-color: rgb(64, 120, 9);
+}
+.nav-items > ul{
+    list-style: none;
+    display: flex;
+    padding-left: -45px;
+}
+.nav-items > ul >li{
+    padding: 10px;
+    color: white;
+    text-decoration: none;
+}
+.logoimage{
+    height: 100px;
+    width:120px;
+}
+.LinkedPath{
+    text-decoration: none;
+    color: white;
+
+    padding: 10px;
+    
+}
+.bhencho{
+    margin-top: 5px;
+    background-color: aqua;
+}
+.Card img{
+width:100%;
+height: 10rem;
+
+}
+.Card{
+    
+    margin: 10px;
+    padding: 10px;
+    width: 200px;
+border: 1px solid black;
+}
+.CardHeading{
+margin: 2px;
+font-size: small;
+}
+.CardHolder{
+    display: flex;
+    flex-wrap: wrap;
+    
+
+}
+.Type{
+    font-size: small;
+}
+
+.Shimmer-Container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.Shimmer-Card {
+    width: 200px; /* Adjust width as needed */
+    height: 199px; /* Adjust height as needed */
+    margin: 10px; /* Adjust margin as needed */
+    background-color: #f6f7f889; /* Grey background color */
+    position: relative;
+    overflow: hidden;
+}
+
+.Shimmer-Card::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background-color: rgba(160, 156, 156, 0.775); /* Transparent grey color for blinking */
+    animation: blink 0.5s infinite alternate; /* Adjust blinking animation duration and timing as needed */
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
