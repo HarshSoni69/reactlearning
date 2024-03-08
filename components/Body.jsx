@@ -1,53 +1,54 @@
-import React, { useEffect, useState } from 'react';
+// Body.js
+import React from 'react';
 import ResturantCard from './resturantcard';
 import ShimmerUI from './ShimmerUI';
 import RestaurantNotFound from './HELLO';
+import useOffline from '../uitils/useOffline';
+import useRestaurantFilter from '../uitils/useFilter';
+import { ShimmerSimpleGallery } from "react-shimmer-effects";
 
 
 const Body = () => {
-  const [searchtext, setSearchText] = useState("");
-  const [ALLRestaurant, setALLRestaurant] = useState([]);
-  const [FilteredRestaurant,setFilteredRestaurant]=useState([]);
+  const { searchText, handleSearchTextChange, allRestaurants, filteredRestaurants } = useRestaurantFilter();
+  const status = useOffline();
 
-  const filterData = () => {
-    const filtered = ALLRestaurant.filter((restaurant) =>
-      restaurant.info.name.toLowerCase().includes(searchtext.toLowerCase())
+  if (!status) {
+    return (
+      <div className="h-screen flex items-center justify-center">
+        <h1>Net ke pase tera baap dega </h1>
+      </div>
     );
-    setFilteredRestaurant(filtered);
-  };
+  }
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=30.67400&lng=76.72490&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
-        const data = await response.json();
-        setALLRestaurant(data?.data?.cards.find(card => card.card.card.id === 'restaurant_grid_listing').card.card.gridElements.infoWithStyle.restaurants);
-        setFilteredRestaurant(data.data.cards.find(card => card.card.card.id === 'restaurant_grid_listing').card.card.gridElements.infoWithStyle.restaurants);
-        console.log(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    })();
-  }, []);
-  if(!ALLRestaurant) return null;
+  if (!allRestaurants) {
+    return null;
+  }
 
-
-  return(ALLRestaurant.length===0)?<ShimmerUI/> :(
+  return allRestaurants.length === 0 ? (
+  <>   <ShimmerSimpleGallery card imageHeight={200} caption centre /></>
+  ) : (
     <>
       <input
         type="text"
         placeholder="Search.."
-        value={searchtext}
-        onChange={(e) => setSearchText(e.target.value)}
+        value={searchText}
+        onChange={(e) => handleSearchTextChange(e.target.value)}
       />
-      <button onClick={filterData}>Search</button>
-      <div className="CardHolder">
-    
-        {(FilteredRestaurant.length==0)?<RestaurantNotFound/>:FilteredRestaurant.map((restaurant) => (
-          
+      <div className="flex justify-center flex-wrap m-2">
+        {filteredRestaurants.length === 0 ? <RestaurantNotFound /> : filteredRestaurants.map((restaurant) => (
           <ResturantCard key={restaurant.info.id} {...restaurant.info} />
         ))}
       </div>
+      <style jsx>{`
+        .CardHolder::-webkit-scrollbar {
+          display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+        }
+        
+        .CardHolder {
+          -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+          scrollbar-width: none; /* Hide scrollbar for Firefox */
+        }
+      `}</style>
     </>
   );
 };
