@@ -10,6 +10,7 @@
   "author": "harsh",
   "license": "ISC",
   "devDependencies": {
+    "gh-pages": "^6.1.1",
     "parcel": "^2.11.0",
     "postcss": "^8.4.35",
     "process": "^0.11.10",
