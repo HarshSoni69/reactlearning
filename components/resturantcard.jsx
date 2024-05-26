@@ -1,9 +1,11 @@
-import React from 'react';
+import React,{useContext} from 'react';
 import { Link } from "react-router-dom";
+
+import UserContext from '../contexts/UserContext';
 
 const ResturantCard = ({ cloudinaryImageId, name, cuisines, id }) => {
   const displayCuisines = cuisines.slice(0, 2); // Extracting the first two cuisines
-
+  
   return (
     <Link to={"/resturant/" + id}>
       <div className="m-3 p-2 border border-transparent w-72 max-w-full hover:shadow-lg transform hover:scale-105 transition duration-300">
@@ -16,6 +18,8 @@ const ResturantCard = ({ cloudinaryImageId, name, cuisines, id }) => {
             <span key={index} className="bg-orange-100 px-2 py-1 rounded-2xl text-xs">{cuisine}</span>
           ))}
         </div>
+        
+    
       </div>
     </Link>
   );

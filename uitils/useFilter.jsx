@@ -21,7 +21,7 @@ const useRestaurantFilter = () => {
       }
     };
 
-    fetchData();
+    filterData();
   }, []);
 
   const handleSearchTextChange = (text) => {
